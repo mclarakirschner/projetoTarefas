@@ -1,0 +1,20 @@
+[
+  {
+    "id": "00fd5db9-c691-47be-95ee-ccb4fb8726fa",
+    "titulo": "Fazer Compra",
+    "descricao": "Comprar Legumes\nRação\nSabão",
+    "prioridade": "media",
+    "prazo": "2026-12-03",
+    "status": "todo",
+    "criadaEm": "2026-10-01T18:47:37.602Z"
+  },
+  {
+    "id": "871d2cda-2502-4d11-bbd8-8d7bb17dc00d",
+    "titulo": "Entregar Projeto Faculdade",
+    "descricao": "Entrega trabalho poo",
+    "prioridade": "alta",
+    "prazo": "2026-11-04",
+    "status": "todo",
+    "criadaEm": "2026-10-01T18:53:21.160Z"
+  }
+]

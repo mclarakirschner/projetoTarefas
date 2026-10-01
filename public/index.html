@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="claro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quadro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Biblioteca de ícones (usada pelo HTML e pelo app.js) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+    <symbol id="i-columns" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 8v8M15 8v4"/></symbol>
+    <symbol id="i-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+  </svg>
+
+  <div class="pagina">
+    <header class="topo">
+      <div class="marca">
+        <div class="logo"><svg class="ic"><use href="#i-columns"/></svg></div>
+        <div>
+          <p class="data" id="dataHoje"></p>
+          <h1>Quadro</h1>
+        </div>
+      </div>
+
+      <div class="controles">
+        <div class="busca">
+          <svg class="ic"><use href="#i-search"/></svg>
+          <input type="search" id="busca" placeholder="Buscar tarefa">
+        </div>
+
+        <select id="filtroPrioridade">
+          <option value="">Toda prioridade</option>
+          <option value="alta">Alta</option>
+          <option value="media">Média</option>
+          <option value="baixa">Baixa</option>
+        </select>
+
+        <button id="btnTema" class="icon-btn" title="Alternar tema" aria-label="Alternar tema"></button>
+
+        <button id="btnNova" class="primario">
+          <svg class="ic"><use href="#i-plus"/></svg> Nova tarefa
+        </button>
+      </div>
+    </header>
+
+    <section class="stats">
+      <div class="stat">
+        <span class="stat-ic"><svg class="ic"><use href="#i-list"/></svg></span>
+        <div><strong id="statTotal">0</strong><span>tarefas</span></div>
+      </div>
+      <div class="stat">
+        <span class="stat-ic alerta"><svg class="ic"><use href="#i-alert"/></svg></span>
+        <div><strong id="statAtrasadas">0</strong><span>atrasadas</span></div>
+      </div>
+      <div class="stat">
+        <span class="stat-ic ok"><svg class="ic"><use href="#i-check"/></svg></span>
+        <div><strong id="statPct">0%</strong><span>concluído</span></div>
+      </div>
+      <div class="linha-progresso"><div id="barraProgresso"></div></div>
+    </section>
+
+    <main class="quadro">
+      <section class="coluna" data-status="todo">
+        <h2>
+          <span class="col-ic"><svg class="ic"><use href="#i-circle"/></svg></span>
+          A fazer <span class="qtd">0</span>
+        </h2>
+        <div class="cards"></div>
+      </section>
+
+      <section class="coluna" data-status="doing">
+        <h2>
+          <span class="col-ic"><svg class="ic"><use href="#i-clock"/></svg></span>
+          Em andamento <span class="qtd">0</span>
+        </h2>
+        <div class="cards"></div>
+      </section>
+
+      <section class="coluna" data-status="done">
+        <h2>
+          <span class="col-ic"><svg class="ic"><use href="#i-check"/></svg></span>
+          Concluído <span class="qtd">0</span>
+        </h2>
+        <div class="cards"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="modal">
+    <form id="form">
+      <h3 id="modalTitulo">Nova tarefa</h3>
+
+      <label>Título
+        <input type="text" id="titulo" required maxlength="80">
+      </label>
+
+      <label>Descrição
+        <textarea id="descricao" rows="3" maxlength="300"></textarea>
+      </label>
+
+      <div class="duas-colunas">
+        <label>Prioridade
+          <select id="prioridade">
+            <option value="baixa">Baixa</option>
+            <option value="media" selected>Média</option>
+            <option value="alta">Alta</option>
+          </select>
+        </label>
+
+        <label>Prazo
+          <input type="date" id="prazo">
+        </label>
+      </div>
+
+      <div class="acoes">
+        <button type="button" id="btnCancelar" class="link">Cancelar</button>
+        <button type="submit" class="primario">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
